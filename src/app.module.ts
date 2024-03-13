@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { BinanceModule } from './binance/binance.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { BinanceModule } from './binance/binance.module';
+import { BinanceService } from './binance/service/binance.service';
+import { SwapModule } from './swap/swap.module';
 
 @Module({
   imports: [
@@ -10,15 +13,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DATABASE_HOST,
       port: 5432,
-      username: 'postgres',
-      password: 'dianadev',
-      database: 'binance_swap_manager',
-      entities: [],
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     BinanceModule,
+    SwapModule,
   ],
+  providers: [BinanceService],
 })
 export class AppModule {}

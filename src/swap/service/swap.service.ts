@@ -33,7 +33,7 @@ export class SwapService {
     pair,
     volume,
     operation,
-  }: SwapOperationDto): Promise<any> {
+  }: SwapOperationDto): Promise<Estimation> {
     try {
       const orderBook = await this.binanceService.getOrderBook(pair);
       const { asks, bids } = orderBook;

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { SwapService } from '../service/swap.service';
 import { SwapOperationDto } from '../dto/swap-operation.dto';
@@ -8,10 +8,11 @@ export class SwapController {
   constructor(private readonly swapService: SwapService) {}
 
   @Get('/estimate-price')
-  async estimatePrice(@Body() swapOperationDto: SwapOperationDto) {
-    const estimation = await this.swapService.estimatePrice(swapOperationDto);
+  async estimatePrice(@Query() query: SwapOperationDto) {    
+    const estimation = await this.swapService.estimatePrice(query);
     return {
       data: estimation,
     };
   }
+
 }

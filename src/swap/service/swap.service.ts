@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { BinanceService } from 'src/binance/service/binance.service';
 import { Swap } from '../entities/swap.entity';
 import { Estimation } from '../entities/estimation.entity';
+import { SwapOperationDto } from '../dto/swap-operation.dto';
 
 @Injectable()
 export class SwapService {
@@ -28,11 +29,11 @@ export class SwapService {
     private swapRepository: Repository<Swap>,
   ) {}
 
-  async estimatePrice(
-    pair: string,
-    volume: number,
-    operation: 'BUY' | 'SELL',
-  ): Promise<any> {
+  async estimatePrice({
+    pair,
+    volume,
+    operation,
+  }: SwapOperationDto): Promise<any> {
     try {
       const orderBook = await this.binanceService.getOrderBook(pair);
       const { asks, bids } = orderBook;
@@ -76,7 +77,6 @@ export class SwapService {
 
       return estimation;
     } catch (error) {
-      console.error(error)
       throw new HttpException(
         error.message || 'Error estimating price',
         HttpStatus.INTERNAL_SERVER_ERROR,

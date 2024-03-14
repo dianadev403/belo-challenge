@@ -14,8 +14,8 @@ export class Estimation {
   @Column()
   operation: string;
 
-  @Column('decimal')
-  estimatedPrice: number;
+  @Column()
+  estimatedPrice: string;
 
   @Column({ type: 'timestamp' })
   validUntil: Date;

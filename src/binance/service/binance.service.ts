@@ -1,20 +1,20 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Spot } from '@binance/connector';
+import { environments } from 'src/environments/environmets';
 
+const apiKey = environments.binance.apiKey;
+const apiSecret = environments.binance.apiSecret;
+
+const client = new Spot(apiKey, apiSecret, {
+  baseURL: 'https://testnet.binance.vision',
+});
 @Injectable()
 export class BinanceService {
-  private client: Spot;
-
-  constructor() {
-    this.client = new Spot(
-      process.env.BINANCE_API_KEY,
-      process.env.BINANCE_API_SECRET,
-    );
-  }
+  constructor() {}
 
   async getAccountInfo() {
     try {
-      const response = await this.client.account();
+      const response = await client.account();
       return response.data;
     } catch (error) {
       throw new Error('Failed to get account information');
@@ -23,18 +23,29 @@ export class BinanceService {
 
   async getOrderBook(pair: string, limit = 5) {
     try {
-      const response = await this.client.depth(pair, { limit });
+      const response = await client.depth(pair, { limit });
       return response.data;
     } catch (error) {
       throw new Error(`Failed to get order book for ${pair}`);
     }
   }
 
-  async newOrder(pair: string, side: string, type: string, params: any) {
+  async newOrder(
+    pair: string,
+    operation: string,
+    type: string,
+    quantity: number,
+    price: string,
+  ) {
     try {
-      const response = await this.client.newOrder(pair, side, type, params);
+      const response = await client.newOrder(pair, operation, type, {
+        price,
+        quantity,
+        timeInForce: 'GTC',
+      });
       return response.data;
     } catch (error) {
+      console.log(error);
       throw new Error(`Failed to place new order for ${pair}`);
     }
   }

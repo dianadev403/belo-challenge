@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-export class SwapOperationDto {
+export class EstimatePriceDto {
   @IsNotEmpty()
   @IsString()
   pair: string;

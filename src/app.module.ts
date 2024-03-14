@@ -5,19 +5,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BinanceModule } from './binance/binance.module';
 import { BinanceService } from './binance/service/binance.service';
 import { SwapModule } from './swap/swap.module';
+import { environments } from './environments/environmets';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
+      host: environments.database.host,
       port: 5432,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
+      username: environments.database.username,
+      password: environments.database.password,
+      database: environments.database.name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

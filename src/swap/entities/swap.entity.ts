@@ -8,12 +8,12 @@ export class Swap {
   @Column()
   pair: string;
 
-  @Column()
+  @Column('decimal')
   volume: number;
 
   @Column()
   price: string;
 
-  //transactionId binance?
-  //fecha y hora
+  @Column()
+  orderId: number; 
 }

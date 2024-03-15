@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Spot } from '@binance/connector';
-import { environments } from 'src/environments/environmets';
+import { environments } from 'src/environments/environments';
+
+
 
 const apiKey = environments.binance.apiKey;
 const apiSecret = environments.binance.apiSecret;

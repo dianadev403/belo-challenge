@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BinanceModule } from './binance/binance.module';
 import { BinanceService } from './binance/service/binance.service';
 import { SwapModule } from './swap/swap.module';
-import { environments } from './environments/environmets';
+import { environments } from './environments/environments';
 
 @Module({
   imports: [

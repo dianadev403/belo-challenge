@@ -2,12 +2,12 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { environments } from 'src/environments/environments';
 import { BinanceService } from 'src/binance/service/binance.service';
 import { Estimation } from '../entities/estimation.entity';
 import { EstimatePriceDto } from '../dto/estimate-price.dto';
 import { ExecuteSwapDto } from '../dto/execute-swap.dto';
 import { Swap } from '../entities/swap.entity';
-import { environments } from 'src/environments/environmets';
 
 @Injectable()
 export class SwapService {

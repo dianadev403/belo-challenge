@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Spot } from '@binance/connector';
+
 import { environments } from 'src/environments/environments';
 
 
@@ -47,7 +48,6 @@ export class BinanceService {
       });
       return response.data;
     } catch (error) {
-      console.log(error);
       throw new Error(`Failed to place new order for ${pair}`);
     }
   }

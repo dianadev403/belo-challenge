@@ -21,14 +21,13 @@ describe('swap controller integration test', () => {
   it('should estimate price correctly', async () => {
     const response = await request(app.getHttpServer())
       .get('/swap/estimate-price')
-      .query({ pair: 'ETHUSDT', volume: 0.5, operation: 'BUY' })
+      .query({ pair: 'ETHUSDT', volume: 0.01, operation: 'BUY' })
       .expect(200);
 
     expect(response.body).toBeDefined();
     expect(response.body.data).toBeDefined();
     expect(response.body.data).toHaveProperty('id');
     estimationId = response.body.data.id;
-    console.log(response.body.data)
   });
 
   it('should execute swap correctly', async () => {

@@ -39,15 +39,19 @@ describe('swap service integration test', () => {
   it('should create an estimation', async () => {
     const estimatePriceDto: EstimatePriceDto = {
       pair: 'ETHUSDT',
-      volume: 0.5,
+      volume: 0.01,
       operation: 'BUY',
     };
 
     const estimation = await swapService.estimatePrice(estimatePriceDto);
+    estimationId = estimation.id;
+
     expect(estimation).toBeDefined();
   });
 
   it('should execute a swap', async () => {
+    expect(estimationId).toBeDefined();
+
     const executeSwapDto: ExecuteSwapDto = { estimationId };
 
     const swap = await swapService.executeSwap(executeSwapDto);
